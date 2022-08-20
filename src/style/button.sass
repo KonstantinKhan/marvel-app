@@ -6,6 +6,7 @@
   background-color: transparent
   color: #fff
   text-transform: uppercase
+  transition: 0.3s transform
   border: none
 
   &__long
@@ -67,3 +68,6 @@
 
   &.button__secondary::before, &.button__secondary::after
     background-color: $grey
+
+  &:hover
+    transform: translateY(-5px)
