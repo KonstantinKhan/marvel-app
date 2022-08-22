@@ -74,7 +74,9 @@ class RandomChar extends Component<Props, State> {
                     <p className="random-char__title">Random character for today! <br/>
                         Do you want to get to know him better?</p>
                     <p className="random-char__title">Or choose another one</p>
-                    <a href="#" className="button button__main">
+                    <a href="#" className="button button__main"
+                       onClick={this.updateChar}
+                    >
                         <div className="inner">try it</div>
                     </a>
                     <img src={mjolnir} alt="mjolnir" className="random-char__decoration"/>
