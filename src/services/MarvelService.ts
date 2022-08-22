@@ -23,7 +23,6 @@ class MarvelService {
     }
 
     _transformCharacter = (char: any) => {
-        console.log(char.description)
         return {
             name: char.name,
             description: char.description ? char.description : 'There is no description for this character',
