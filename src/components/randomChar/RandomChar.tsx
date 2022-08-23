@@ -1,4 +1,4 @@
-import {Component} from "react";
+import React, {Component} from "react";
 
 import MarvelService from "../../services/MarvelService";
 
@@ -98,9 +98,13 @@ class RandomChar extends Component<Props, State> {
 
 const View = (char: Char) => {
     const {name, description, thumbnail, homepage, wiki} = char
+    let imgStyle: React.CSSProperties = {objectFit: "cover"}
+    if (thumbnail?.includes("image_not_available")) {
+        imgStyle = {objectFit: "contain"}
+    }
     return (
         <div className="random-char__block">
-            <img src={thumbnail} alt="thor"/>
+            <img src={thumbnail} alt="Random character" style={imgStyle}/>
             <div className="random-char__block__info">
                 <p className="random-char__block__info__name">{name}</p>
                 <p className="random-char__block__info__descr">{description}</p>
