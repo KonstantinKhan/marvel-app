@@ -1,3 +1,5 @@
+import {Char} from "../components/randomChar/RandomChar";
+
 class MarvelService {
     _apiBase: string = 'https://gateway.marvel.com:443/v1/public/'
     _apiKey: string = 'apikey=57f798407fac8e5cd25352d39223487d'
@@ -12,14 +14,18 @@ class MarvelService {
         return await res.json()
     }
 
-    getAllCharacters = async () => {
+    getAllCharacters = async (): Promise<Char[]> => {
         const res = await this.getResource(`${this._apiBase}characters?limit=9&offset=210&${this._apiKey}`)
         return res.data.results.map(this._transformCharacter)
     }
 
-    getCharacter = async (id: number) => {
-        const res = await this.getResource(`${this._apiBase}characters/${id}?${this._apiKey}`)
+    getCharacter = async () => {
+        const res = await this.getResource(`${this._apiBase}characters/${this._getRandomCharId()}?${this._apiKey}`)
         return this._transformCharacter(res.data.results[0])
+    }
+
+    _getRandomCharId = () => {
+        return Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
     }
 
     _transformCharacter = (char: any) => {

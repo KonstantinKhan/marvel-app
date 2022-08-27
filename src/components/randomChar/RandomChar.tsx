@@ -15,7 +15,7 @@ interface State {
     error: boolean
 }
 
-interface Char {
+export interface Char {
     name?: string,
     description?: string,
     thumbnail?: string,
@@ -61,10 +61,9 @@ class RandomChar extends Component<Props, State> {
     }
 
     updateChar = () => {
-        const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
         this.onCharLoading()
         this.marvelService
-            .getCharacter(id)
+            .getCharacter()
             .then(this.onCharLoaded)
             .catch(this.onError)
     }
