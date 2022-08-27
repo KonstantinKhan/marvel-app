@@ -16,6 +16,7 @@ interface State {
 }
 
 export interface Char {
+    id?: string,
     name?: string,
     description?: string,
     thumbnail?: string,
