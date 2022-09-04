@@ -4,6 +4,7 @@ import AppHeader from "../appHeader/AppHeader";
 import RandomChar from "../randomChar/RandomChar"
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
+import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
 import '../../style/style.sass'
 import './app.sass'
@@ -11,7 +12,7 @@ import './app.sass'
 import decoration from '../../resources/img/vision.png'
 
 interface State {
-    selectedChar: string
+    selectedChar: number | null
 }
 
 interface Props {
@@ -20,7 +21,11 @@ interface Props {
 
 class App extends Component<Props, State> {
 
-    onSelectedChar = (id: string) => {
+    state = {
+        selectedChar: null
+    }
+
+    onSelectedChar = (id: number) => {
         this.setState({
             selectedChar: id
         })
@@ -31,10 +36,16 @@ class App extends Component<Props, State> {
             <div className="app">
                 <AppHeader/>
                 <main>
-                    <RandomChar/>
+                    <ErrorBoundary>
+                        <RandomChar/>
+                    </ErrorBoundary>
                     <div className="char__content">
-                        <CharList onCharSelected={this.onSelectedChar}/>
-                        <CharInfo charId={this.state.selectedChar}/>
+                        <ErrorBoundary>
+                            <CharList onCharSelected={this.onSelectedChar}/>
+                        </ErrorBoundary>
+                        <ErrorBoundary>
+                            <CharInfo charId={this.state.selectedChar}/>
+                        </ErrorBoundary>
                     </div>
                     <img src={decoration} alt="vision" className="bg-decoration"/>
                 </main>
