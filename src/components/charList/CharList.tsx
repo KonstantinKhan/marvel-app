@@ -12,7 +12,7 @@ interface State {
 }
 
 interface Props {
-    onCharSelected(id: string): void
+    onCharSelected(id: number): void
 }
 
 
@@ -59,7 +59,7 @@ class CharList extends Component<Props, State> {
             return (
                 <li className="char__item"
                     key={item.id}
-                    onClick={() => this.props.onCharSelected(item.id ?? "")}
+                    onClick={() => this.props.onCharSelected(item.id ?? 0)}
                 >
                     <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
                     <p className="char__name">{item.name}</p>
