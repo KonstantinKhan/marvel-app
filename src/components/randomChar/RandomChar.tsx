@@ -16,12 +16,18 @@ interface State {
 }
 
 export interface Char {
-    id?: string,
+    id?: number,
     name?: string,
     description?: string,
     thumbnail?: string,
     homepage?: string,
-    wiki?: string
+    wiki?: string,
+    comics?: Comic[]
+}
+
+export interface Comic {
+    resourceUrl?: string,
+    name?: string
 }
 
 interface Props {
@@ -30,7 +36,13 @@ interface Props {
 
 class RandomChar extends Component<Props, State> {
 
-    state = {char: {}, loading: true, error: false}
+    state = {
+        char: {
+            comics: []
+        },
+        loading: true,
+        error: false
+    }
 
     marvelService = new MarvelService()
 
@@ -64,9 +76,13 @@ class RandomChar extends Component<Props, State> {
     updateChar = () => {
         this.onCharLoading()
         this.marvelService
-            .getCharacter()
+            .getCharacter(this._getRandomCharId())
             .then(this.onCharLoaded)
             .catch(this.onError)
+    }
+
+    _getRandomCharId = () => {
+        return Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
     }
 
     render() {
@@ -97,7 +113,7 @@ class RandomChar extends Component<Props, State> {
 }
 
 const View = (char: Char) => {
-    const {name, description, thumbnail, homepage, wiki} = char
+    const {name, description, thumbnail, homepage, wiki, comics} = char
     let imgStyle: React.CSSProperties = {objectFit: "cover"}
     if (thumbnail?.includes("image_not_available")) {
         imgStyle = {objectFit: "contain"}
