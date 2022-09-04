@@ -1,4 +1,5 @@
 import "./skeleton.sass"
+import "../../style/style.sass"
 
 const Skeleton = () => {
     return (
